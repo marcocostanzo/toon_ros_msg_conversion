@@ -4,6 +4,7 @@
 #include "TooN/TooN.h"
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Wrench.h"
+#include "geometry_msgs/Twist.h"
 #include "sun_math_toolbox/UnitQuaternion.h"
 
 namespace sun {
@@ -36,6 +37,31 @@ geometry_msgs::Wrench TooN2wrench(const TooN::Vector<6> &w) {
   wrench.torque.y = w[4];
   wrench.torque.z = w[5];
   return wrench;
+}
+
+geometry_msgs::Twist TooN2twist(const TooN::Vector<6> &t) {
+  geometry_msgs::Twist twist;
+  twist.linear.x = t[0];
+  twist.linear.y = t[1];
+  twist.linear.z = t[2];
+  twist.angular.x = t[3];
+  twist.angular.y = t[4];
+  twist.angular.z = t[5];
+  return twist;
+}
+
+TooN::Vector<3> vector3_2_TooN(const geometry_msgs::Vector3& msg)
+{
+  return TooN::makeVector(msg.x, msg.y, msg.z);
+}
+
+geometry_msgs::Vector3 TooN2Vector3(const TooN::Vector<3>& v)
+{
+  geometry_msgs::Vector3 out;
+  out.x = v[0];
+  out.y = v[1];
+  out.z = v[2];
+  return out;
 }
 
 } // namespace sun
